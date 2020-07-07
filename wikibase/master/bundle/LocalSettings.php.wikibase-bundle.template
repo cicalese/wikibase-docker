@@ -23,5 +23,11 @@ wfLoadExtension( 'UniversalLanguageSelector' );
 # cldr
 wfLoadExtension( 'cldr' );
 
-#EntitySchema
+# EntitySchema
 wfLoadExtension( 'EntitySchema' );
+
+# WikibaseMediaInfo
+wfLoadExtension( 'WikibaseMediaInfo' );
+# Don't forget to create P1
+${DOLLAR}wgMediaInfoProperties = [ 'depicts' => 'P1' ];
+${DOLLAR}wgEnableUploads = true;

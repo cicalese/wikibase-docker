@@ -1,11 +1,12 @@
 FROM ubuntu:xenial as fetcher
 
 RUN apt-get update && \
-    apt-get install --yes --no-install-recommends unzip=6.* jq=1.* curl=7.* ca-certificates=201* && \
+    apt-get install --yes --no-install-recommends git unzip=6.* jq=1.* curl=7.* ca-certificates=201* && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY download-extension.sh .
 ADD https://github.com/wikidata/WikibaseImport/archive/master.tar.gz /WikibaseImport.tar.gz
+RUN tar xzf WikibaseImport.tar.gz && rm WikibaseImport.tar.gz
 RUN bash download-extension.sh OAuth;\
 bash download-extension.sh Elastica;\
 bash download-extension.sh CirrusSearch;\
@@ -13,17 +14,7 @@ bash download-extension.sh WikibaseCirrusSearch;\
 bash download-extension.sh UniversalLanguageSelector;\
 bash download-extension.sh cldr;\
 bash download-extension.sh EntitySchema;\
-bash download-extension.sh WikibaseMediaInfo;\
-tar xzf OAuth.tar.gz;\
-tar xzf Elastica.tar.gz;\
-tar xzf CirrusSearch.tar.gz;\
-tar xzf WikibaseCirrusSearch.tar.gz;\
-tar xzf UniversalLanguageSelector.tar.gz;\
-tar xzf cldr.tar.gz;\
-tar xzf WikibaseImport.tar.gz;\
-tar xzf EntitySchema.tar.gz;\
-tar xzf WikibaseMediaInfo.tar.gz;\
-rm ./*.tar.gz
+bash download-extension.sh WikibaseMediaInfo
 
 FROM wikibase:master as collector
 COPY --from=fetcher /WikibaseImport-master /var/www/html/extensions/WikibaseImport

@@ -46,6 +46,17 @@ ${DOLLAR}wgSecretKey = "${MW_WG_SECRET_KEY}";
 # Set this to 1 year to avoid any changes being removed from the RC table over a shorter period of time.
 ${DOLLAR}wgRCMaxAge = 365 * 24 * 3600;
 
+# Debugging
+error_reporting( -1 );
+ini_set( 'display_errors', 1 );
+${DOLLAR}wgResourceLoaderDebug = true;
+${DOLLAR}wgShowDBErrorBacktrace = true;
+${DOLLAR}wgDebugLogFile= "/tmp/MediaWikiDebug.log";
+${DOLLAR}wgDebugDumpSql = true;
+${DOLLAR}wgShowSQLErrors = true;
+${DOLLAR}wgShowExceptionDetails = true;
+${DOLLAR}wgEnableJavaScriptTest = true;
+
 wfLoadSkin( 'Vector' );
 
 ## Wikibase

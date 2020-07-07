@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 EXTENSION=$1
 
-TAR_URL=$(curl -s "https://www.mediawiki.org/w/api.php?action=query&list=extdistbranches&edbexts=$EXTENSION&formatversion=2&format=json" | jq -r ".query.extdistbranches.extensions.$EXTENSION.master")
-curl -s "$TAR_URL" -o "$EXTENSION".tar.gz
+git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/$EXTENSION.git
+cd $EXTENSION
+git submodule update --init
